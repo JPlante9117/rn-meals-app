@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Font from 'expo-font'
 import { AppLoading } from 'expo'
+import { createStackNavigator } from '@react-navigation/stack';
+import MealsNavigator from './navigation/MealsNavigator';
+
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -9,6 +12,8 @@ const fetchFonts = () => {
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
   })
 }
+
+const Stack = createStackNavigator()
 
 export default function App() {
 
@@ -21,11 +26,7 @@ export default function App() {
             />
   }
 
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+  return <MealsNavigator />
 }
 
 const styles = StyleSheet.create({

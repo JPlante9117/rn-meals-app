@@ -6,6 +6,7 @@ import MealDetailsScreen from '../screens/MealDetailsScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
+import { CATEGORIES } from '../data/Dummy-Data'
 
 const Stack = createStackNavigator()
 
@@ -37,7 +38,11 @@ const MealsNavigator = props => {
                     component={CategoryMealsScreen}
                     options={({route}) => ({
                         ...baseHeader,
-                        title: route.params.categoryId
+                        title: CATEGORIES.find(cat => cat.id === route.params.id).title,
+                        
+                        headerStyle: {
+                            backgroundColor: CATEGORIES.find(cat => cat.id === route.params.id).color
+                        }
                     })}
                 />
                 <Stack.Screen

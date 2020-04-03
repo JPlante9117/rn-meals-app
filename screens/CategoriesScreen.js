@@ -13,7 +13,7 @@ const CategoriesScreen = props => {
         
         return (
             <TouchFeedback onPress={() => {
-                props.navigation.navigate('Category Meals')
+                props.navigation.navigate('Category Meals', {id: itemData.item.id})
             }}>
                 <View style={{...styles.gridItem, backgroundColor: itemData.item.color}}>
                     <Text style={styles.gridItemText}>

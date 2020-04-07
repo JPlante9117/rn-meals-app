@@ -16,7 +16,7 @@ const MealsNavigator = props => {
         headerStyle: {
             backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
         },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
+        headerTintColor: Platform.OS === 'android' ? 'black' : Colors.primary,
         headerTitleAlign: 'center'
     }
 
@@ -24,12 +24,12 @@ const MealsNavigator = props => {
         <NavigationContainer>
             <Stack.Navigator
                 initialRouteName="Categories"
+                screenOptions={baseHeader}
             >
                 <Stack.Screen
                     name="Categories"
                     component={CategoriesScreen}
                     options={{
-                        ...baseHeader,
                         title: 'Meal Categories'
                     }}
                 />
@@ -37,7 +37,6 @@ const MealsNavigator = props => {
                     name="Category Meals"
                     component={CategoryMealsScreen}
                     options={({route}) => ({
-                        ...baseHeader,
                         title: CATEGORIES.find(cat => cat.id === route.params.id).title,
                         
                         headerStyle: {
@@ -49,7 +48,6 @@ const MealsNavigator = props => {
                     name="Meal Details"
                     component={MealDetailsScreen}
                     options={{
-                        ...baseHeader
                     }}
                 />
             </Stack.Navigator>

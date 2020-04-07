@@ -17,7 +17,10 @@ const MealsNavigator = props => {
 
     const baseHeader = {
         headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
+            backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
+        },
+        headerTitleStyle: {
+            width: '100%'
         },
         headerTintColor: Platform.OS === 'android' ? 'black' : Colors.primary,
         headerTitleAlign: 'center'
@@ -28,6 +31,7 @@ const MealsNavigator = props => {
             <Stack.Navigator
                 initialRouteName="Categories"
                 screenOptions={baseHeader}
+                headerMode={'screen'}
             >
                 <Stack.Screen
                     name="Categories"
@@ -51,7 +55,11 @@ const MealsNavigator = props => {
                     name="Meal Details"
                     component={MealDetailsScreen}
                     options={({route}) => ({
-                        title: MEALS.find(meal => meal.id === route.params.id).title
+                        title: MEALS.find(meal => meal.id === route.params.id).title,
+                        headerTitleContainerStyle: {
+                            width: Platform.OS === 'ios' ? '60%' : '75%',
+                            alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
+                        }
                     })
                     }
                 />

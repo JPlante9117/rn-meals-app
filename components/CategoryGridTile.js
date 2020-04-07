@@ -9,24 +9,30 @@ const CategoryGridTile = props => {
     }
     
     return (
-        <TouchFeedback onPress={props.handleOnPress}>
-            <View style={{...styles.gridItem, backgroundColor: props.color}}>
-                <Text style={styles.gridItemText}>
-                    {props.title}
-                </Text>
-            </View>
-        </TouchFeedback>
+        <View style={styles.container}>
+            <TouchFeedback style={{flex: 1}} onPress={props.handleOnPress}>
+                <View style={{...styles.gridItem, backgroundColor: props.color}}>
+                    <Text style={styles.gridItemText} numberOfLines={2}>
+                        {props.title}
+                    </Text>
+                </View>
+            </TouchFeedback>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        margin: 10,
+        height: 130
+    },
     gridItem: {
         flex: 1,
-        margin: 5,
-        height: 80,
         borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        padding: 15,
         elevation: 2,
         shadowColor: '#000',
         shadowOffset: {
@@ -38,7 +44,9 @@ const styles = StyleSheet.create({
     },
     gridItemText: {
         fontSize: 18,
-        color: 'black'
+        color: '#1a1a1a',
+        fontFamily: 'open-sans-bold',
+        textAlign: 'right'
     }
 })
 

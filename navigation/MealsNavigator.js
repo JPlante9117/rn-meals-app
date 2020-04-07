@@ -7,6 +7,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 import { CATEGORIES } from '../data/Dummy-Data'
+import { enableScreens } from 'react-native-screens'
+
+enableScreens()
 
 const Stack = createStackNavigator()
 

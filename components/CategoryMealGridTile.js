@@ -14,9 +14,11 @@ const CategoryMealGridTile = props => {
                 <View>
                     <View style={{...styles.mealHeader, ...styles.mealRow}}>
                         <ImageBackground source={{uri: props.image}} style={styles.bgImage}>
-                            <Text style={styles.headerText} numberOfLines={1}>
-                                {props.title}
-                            </Text>
+                            <View style={styles.headerTextContainer}>
+                                <Text style={styles.headerText} numberOfLines={1}>
+                                    {props.title}
+                                </Text>
+                            </View>
                         </ImageBackground>
                     </View>
                     <View style={{...styles.mealDetails, ...styles.mealRow}}>
@@ -37,30 +39,39 @@ const styles = StyleSheet.create({
     mealItem: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ccc'
+        backgroundColor: '#f5f5f5',
+        borderRadius: 10,
+        marginVertical: 5
     },
     mealHeader: {
-        height: '90%'
+        height: '85%'
     },
     mealDetails: {
         paddingHorizontal: 10,
         justifyContent: 'space-between',
-        width: '100%'
+        width: '100%',
+        alignItems: 'center',
+        height: '15%'
     },
     bgImage: {
         width: '100%',
         height: '100%',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+        overflow: 'hidden'
 
     },
     headerText: {
         fontFamily: 'open-sans-bold',
         color: 'white',
         fontSize: 20,
+        textAlign: 'center'
+    },
+    headerTextContainer: {
         backgroundColor: 'rgba(0,0,0,0.5)',
         paddingVertical: 5,
         paddingHorizontal: 12,
-        textAlign: 'center'
     }
 })
 

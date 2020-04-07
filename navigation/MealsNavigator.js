@@ -6,7 +6,7 @@ import MealDetailsScreen from '../screens/MealDetailsScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
-import { CATEGORIES } from '../data/Dummy-Data'
+import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
 
 enableScreens()
@@ -50,8 +50,10 @@ const MealsNavigator = props => {
                 <Stack.Screen
                     name="Meal Details"
                     component={MealDetailsScreen}
-                    options={{
-                    }}
+                    options={({route}) => ({
+                        title: MEALS.find(meal => meal.id === route.params.id).title
+                    })
+                    }
                 />
             </Stack.Navigator>
         </NavigationContainer>

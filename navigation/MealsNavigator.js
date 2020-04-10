@@ -81,7 +81,7 @@ const MealsNavigator = props => {
                     headerMode={'screen'}
                 >
                     <Stack.Screen
-                        name="Categories"
+                        name="Favorites"
                         component={FavoritesScreen}
                         options={{
                             title: 'Favorite Meals'

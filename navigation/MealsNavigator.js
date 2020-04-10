@@ -10,6 +10,9 @@ import { Platform } from 'react-native'
 import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
 
+import FavoritesScreen from '../screens/FavoritesScreen'
+import { Ionicons } from '@expo/vector-icons'
+
 enableScreens()
 
 const Stack = createStackNavigator()
@@ -70,11 +73,48 @@ const MealsNavigator = props => {
         )
     }
 
+    const favStack = () => {
+        return <Stack.Navigator
+                    initialRouteName="Favorites"
+                    screenOptions={baseHeader}
+                    headerMode={'screen'}
+                >
+                    <Stack.Screen
+                        name="Categories"
+                        component={FavoritesScreen}
+                        options={{
+                            title: 'Favorite Meals'
+                        }}
+                    />
+                </Stack.Navigator>
+    }
+
     return(
         <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator
+                screenOptions={({route}) => ({
+                        tabBarIcon: ({focused, color, size}) => {
+                            let iconName
+
+                            if (route.name === "All") {
+                                iconName = 'md-restaurant'
+                            } else if (route.name === "Favorites") {
+                                iconName = focused ? 'ios-star' : 'ios-star-outline'
+                            }
+                            return <Ionicons name={iconName} size={25} color={color} />
+                        }
+                    })
+                }
+                tabBarOptions={{
+                    activeTintColor: Colors.secondary,
+                    inactiveTintColor: '#ccc',
+                    activeBackgroundColor: '#f2f2f2',
+                    inactiveBackgroundColor: 'white',
+                    size: 25
+                }}
+            >
                 <Tab.Screen name="All" component={allStack} />
-                <Tab.Screen name="Favorites" component={allStack} />
+                <Tab.Screen name="Favorites" component={favStack} />
             </Tab.Navigator>
         </NavigationContainer>
     )

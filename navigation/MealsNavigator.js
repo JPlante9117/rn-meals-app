@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import CategoriesScreen from '../screens/CategoriesScreen'
 import CategoryMealsScreen from '../screens/CategoryMealsScreen'
 import MealDetailsScreen from '../screens/MealDetailsScreen'
@@ -8,11 +9,12 @@ import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
-import { Text } from 'react-native'
 
 enableScreens()
 
 const Stack = createStackNavigator()
+
+const Tab = createBottomTabNavigator()
 
 const MealsNavigator = props => {
 
@@ -27,8 +29,8 @@ const MealsNavigator = props => {
         headerTitleAlign: 'center'
     }
 
-    return(
-        <NavigationContainer>
+    const allStack = () => {
+        return (
             <Stack.Navigator
                 initialRouteName="Categories"
                 screenOptions={baseHeader}
@@ -65,6 +67,15 @@ const MealsNavigator = props => {
                     }
                 />
             </Stack.Navigator>
+        )
+    }
+
+    return(
+        <NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen name="All" component={allStack} />
+                <Tab.Screen name="Favorites" component={allStack} />
+            </Tab.Navigator>
         </NavigationContainer>
     )
 }

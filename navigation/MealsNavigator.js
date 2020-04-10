@@ -8,6 +8,7 @@ import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
+import { Text } from 'react-native'
 
 enableScreens()
 
@@ -54,7 +55,7 @@ const MealsNavigator = props => {
                 <Stack.Screen
                     name="Meal Details"
                     component={MealDetailsScreen}
-                    options={({route}) => ({
+                    options={({navigation, route}) => ({
                         title: MEALS.find(meal => meal.id === route.params.id).title,
                         headerTitleContainerStyle: {
                             width: Platform.OS === 'ios' ? '60%' : '75%',

@@ -87,6 +87,18 @@ const MealsNavigator = props => {
                             title: 'Favorite Meals'
                         }}
                     />
+                    <Stack.Screen
+                    name="Meal Details"
+                    component={MealDetailsScreen}
+                    options={({navigation, route}) => ({
+                        title: MEALS.find(meal => meal.id === route.params.id).title,
+                        headerTitleContainerStyle: {
+                            width: Platform.OS === 'ios' ? '60%' : '75%',
+                            alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
+                        }
+                    })
+                    }
+                />
                 </Stack.Navigator>
     }
 

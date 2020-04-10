@@ -14,8 +14,11 @@ const MealDetailsScreen = ({navigation}) => {
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                         <Item
                             title="Favorite"
-                            iconName='ios-star'
-                            onPress={() => setFavoriteStatus(!favoriteStatus)}
+                            iconName={favoriteStatus ? 'ios-star' : 'ios-star-outline'}
+                            onPress={() => {
+                                setFavoriteStatus(!favoriteStatus)
+                                }
+                            }
                         />
                     </HeaderButtons>
             ),

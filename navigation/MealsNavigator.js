@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import CategoriesScreen from '../screens/CategoriesScreen'
 import CategoryMealsScreen from '../screens/CategoryMealsScreen'
 import MealDetailsScreen from '../screens/MealDetailsScreen'
@@ -17,7 +18,7 @@ enableScreens()
 
 const Stack = createStackNavigator()
 
-const Tab = createBottomTabNavigator()
+const Tab = Platform.OS === 'ios' ? createBottomTabNavigator() : createMaterialBottomTabNavigator()
 
 const MealsNavigator = props => {
 
@@ -93,13 +94,13 @@ const MealsNavigator = props => {
         <NavigationContainer>
             <Tab.Navigator
                 screenOptions={({route}) => ({
-                        tabBarIcon: ({focused, color, size}) => {
+                        tabBarIcon: ({color}) => {
                             let iconName
 
-                            if (route.name === "All") {
+                            if (route.name === "Meals") {
                                 iconName = 'md-restaurant'
                             } else if (route.name === "Favorites") {
-                                iconName = focused ? 'ios-star' : 'ios-star-outline'
+                                iconName = 'ios-star'
                             }
                             return <Ionicons name={iconName} size={25} color={color} />
                         }
@@ -112,9 +113,23 @@ const MealsNavigator = props => {
                     inactiveBackgroundColor: 'white',
                     size: 25
                 }}
+                activeColor={'white'}
+                shifting={true}
             >
-                <Tab.Screen name="All" component={allStack} />
-                <Tab.Screen name="Favorites" component={favStack} />
+                <Tab.Screen
+                    name="Meals"
+                    component={allStack}
+                    options={{
+                        tabBarColor: Colors.primary
+                    }}
+                />
+                <Tab.Screen
+                    name="Favorites"
+                    component={favStack}
+                    options={{
+                        tabBarColor: Colors.secondary
+                    }}
+                />
             </Tab.Navigator>
         </NavigationContainer>
     )

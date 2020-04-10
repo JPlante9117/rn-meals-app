@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
             height: 1
         },
         shadowOpacity: 0.20,
-        shadowRadius: 1.41
+        shadowRadius: 1.41,
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible'
     },
     gridItemText: {
         fontSize: 18,

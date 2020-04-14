@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import CategoriesScreen from '../screens/CategoriesScreen'
 import CategoryMealsScreen from '../screens/CategoryMealsScreen'
 import MealDetailsScreen from '../screens/MealDetailsScreen'
@@ -19,6 +20,8 @@ enableScreens()
 const Stack = createStackNavigator()
 
 const Tab = Platform.OS === 'ios' ? createBottomTabNavigator() : createMaterialBottomTabNavigator()
+
+const Drawer = createDrawerNavigator()
 
 const MealsNavigator = props => {
 

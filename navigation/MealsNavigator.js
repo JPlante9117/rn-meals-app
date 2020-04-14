@@ -13,7 +13,10 @@ import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
 
 import FavoritesScreen from '../screens/FavoritesScreen'
+import FiltersScreen from '../screens/FiltersScreen'
 import { Ionicons } from '@expo/vector-icons'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import HeaderButton from '../components/HeaderButton'
 
 enableScreens()
 
@@ -46,9 +49,9 @@ const MealsNavigator = props => {
                 <Stack.Screen
                     name="Categories"
                     component={CategoriesScreen}
-                    options={{
+                    options={({navigation, route}) => ({
                         title: 'Meal Categories'
-                    }}
+                    })}
                 />
                 <Stack.Screen
                     name="Category Meals"
@@ -86,9 +89,9 @@ const MealsNavigator = props => {
                     <Stack.Screen
                         name="Favorites"
                         component={FavoritesScreen}
-                        options={{
+                        options={({navigation, route}) => ({
                             title: 'Favorite Meals'
-                        }}
+                        })}
                     />
                     <Stack.Screen
                     name="Meal Details"
@@ -105,47 +108,72 @@ const MealsNavigator = props => {
                 </Stack.Navigator>
     }
 
+    const tabNavigation = () => {
+        return (
+            <Tab.Navigator
+            screenOptions={({route}) => ({
+                    tabBarIcon: ({color}) => {
+                        let iconName
+
+                        if (route.name === "Meals") {
+                            iconName = 'md-restaurant'
+                        } else if (route.name === "Favorites") {
+                            iconName = 'ios-star'
+                        }
+                        return <Ionicons name={iconName} size={25} color={color} />
+                    }
+                })
+            }
+            tabBarOptions={{
+                activeTintColor: Colors.secondary,
+                inactiveTintColor: '#ccc',
+                activeBackgroundColor: '#f2f2f2',
+                inactiveBackgroundColor: 'white',
+                size: 25
+            }}
+            activeColor={'white'}
+            shifting={true}
+        >
+            <Tab.Screen
+                name="Meals"
+                component={allStack}
+                options={{
+                    tabBarColor: Colors.primary
+                }}
+            />
+            <Tab.Screen
+                name="Favorites"
+                component={favStack}
+                options={{
+                    tabBarColor: Colors.secondary
+                }}
+            />
+        </Tab.Navigator>
+        )
+    }
+
+    const filterStack = () => {
+        return <Stack.Navigator
+                    initialRouteName="Filters"
+                    screenOptions={baseHeader}
+                    headerMode={'screen'}
+                >
+                    <Stack.Screen
+                        name="Filters"
+                        component={FiltersScreen}
+                        options={({navigation, route}) => ({
+                            title: 'Filter Results'
+                        })}
+                    />
+                </Stack.Navigator>
+    }
+
     return(
         <NavigationContainer>
-            <Tab.Navigator
-                screenOptions={({route}) => ({
-                        tabBarIcon: ({color}) => {
-                            let iconName
-
-                            if (route.name === "Meals") {
-                                iconName = 'md-restaurant'
-                            } else if (route.name === "Favorites") {
-                                iconName = 'ios-star'
-                            }
-                            return <Ionicons name={iconName} size={25} color={color} />
-                        }
-                    })
-                }
-                tabBarOptions={{
-                    activeTintColor: Colors.secondary,
-                    inactiveTintColor: '#ccc',
-                    activeBackgroundColor: '#f2f2f2',
-                    inactiveBackgroundColor: 'white',
-                    size: 25
-                }}
-                activeColor={'white'}
-                shifting={true}
-            >
-                <Tab.Screen
-                    name="Meals"
-                    component={allStack}
-                    options={{
-                        tabBarColor: Colors.primary
-                    }}
-                />
-                <Tab.Screen
-                    name="Favorites"
-                    component={favStack}
-                    options={{
-                        tabBarColor: Colors.secondary
-                    }}
-                />
-            </Tab.Navigator>
+            <Drawer.Navigator initialRouteName="Home">
+                <Drawer.Screen name="Home" component={tabNavigation} />
+                <Drawer.Screen name="Filters" component={filterStack} />
+            </Drawer.Navigator>
         </NavigationContainer>
     )
 }

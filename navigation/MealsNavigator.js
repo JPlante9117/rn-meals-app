@@ -15,8 +15,6 @@ import { enableScreens } from 'react-native-screens'
 import FavoritesScreen from '../screens/FavoritesScreen'
 import FiltersScreen from '../screens/FiltersScreen'
 import { Ionicons } from '@expo/vector-icons'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import HeaderButton from '../components/HeaderButton'
 
 enableScreens()
 

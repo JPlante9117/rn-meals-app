@@ -1,4 +1,5 @@
 import React from 'react'
+import {Text} from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
@@ -31,7 +32,11 @@ const MealsNavigator = props => {
             backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
         },
         headerTitleStyle: {
-            width: '100%'
+            width: '100%',
+            fontFamily: 'open-sans-bold'
+        },
+        headerBackTitleStyle: {
+            fontFamily: 'open-sans-bold'
         },
         headerTintColor: Platform.OS === 'android' ? 'black' : Colors.primary,
         headerTitleAlign: 'center'
@@ -127,7 +132,10 @@ const MealsNavigator = props => {
                 inactiveTintColor: '#ccc',
                 activeBackgroundColor: '#f2f2f2',
                 inactiveBackgroundColor: 'white',
-                size: 25
+                size: 25,
+                labelStyle: {
+                    fontFamily: 'open-sans-bold'
+                }
             }}
             activeColor={'white'}
             shifting={true}
@@ -136,14 +144,16 @@ const MealsNavigator = props => {
                 name="Meals"
                 component={allStack}
                 options={{
-                    tabBarColor: Colors.primary
+                    tabBarColor: Colors.primary,
+                    tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Meals</Text> : 'Meals'
                 }}
             />
             <Tab.Screen
                 name="Favorites"
                 component={favStack}
                 options={{
-                    tabBarColor: Colors.secondary
+                    tabBarColor: Colors.secondary,
+                    tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Favorites</Text> : 'Favorites'
                 }}
             />
         </Tab.Navigator>

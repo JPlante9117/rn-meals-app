@@ -1,5 +1,6 @@
 import React from 'react'
-import { TouchableOpacity, TouchableNativeFeedback, View, Text, StyleSheet, Platform } from 'react-native'
+import { TouchableOpacity, TouchableNativeFeedback, View, StyleSheet, Platform } from 'react-native'
+import DefaultText from './DefaultText'
 
 const CategoryGridTile = props => {
     let TouchFeedback = TouchableOpacity
@@ -12,9 +13,9 @@ const CategoryGridTile = props => {
         <View style={styles.container}>
             <TouchFeedback style={{flex: 1}} onPress={props.handleOnPress}>
                 <View style={{...styles.gridItem, backgroundColor: props.color}}>
-                    <Text style={styles.gridItemText} numberOfLines={2}>
+                    <DefaultText style={styles.gridItemText} numberOfLines={2}>
                         {props.title}
-                    </Text>
+                    </DefaultText>
                 </View>
             </TouchFeedback>
         </View>

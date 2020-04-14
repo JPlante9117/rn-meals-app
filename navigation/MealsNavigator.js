@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from 'react-native'
+import DefaultText from '../components/DefaultText'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
@@ -145,7 +145,7 @@ const MealsNavigator = props => {
                 component={allStack}
                 options={{
                     tabBarColor: Colors.primary,
-                    tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Meals</Text> : 'Meals'
+                    tabBarLabel: Platform.OS === 'android' ? <DefaultText style={{fontFamily: 'open-sans-bold'}}>Meals</DefaultText> : 'Meals'
                 }}
             />
             <Tab.Screen
@@ -153,7 +153,7 @@ const MealsNavigator = props => {
                 component={favStack}
                 options={{
                     tabBarColor: Colors.secondary,
-                    tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Favorites</Text> : 'Favorites'
+                    tabBarLabel: Platform.OS === 'android' ? <DefaultText style={{fontFamily: 'open-sans-bold'}}>Favorites</DefaultText> : 'Favorites'
                 }}
             />
         </Tab.Navigator>

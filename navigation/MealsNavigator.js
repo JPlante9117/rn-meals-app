@@ -170,9 +170,30 @@ const MealsNavigator = props => {
 
     return(
         <NavigationContainer>
-            <Drawer.Navigator initialRouteName="Home">
-                <Drawer.Screen name="Home" component={tabNavigation} />
-                <Drawer.Screen name="Filters" component={filterStack} />
+            <Drawer.Navigator
+                initialRouteName="Home"
+                drawerContentOptions={{
+                    activeTintColor: Colors.secondary,
+                    labelStyle: {
+                        fontFamily: 'open-sans',
+                        fontSize: 22
+                    }
+                }}
+            >
+                <Drawer.Screen
+                    name="Home"
+                    component={tabNavigation}
+                    options={{
+                        drawerLabel: 'Meals'
+                    }}
+                />
+                <Drawer.Screen
+                    name="Filters"
+                    component={filterStack}
+                    options={{
+
+                    }}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     )

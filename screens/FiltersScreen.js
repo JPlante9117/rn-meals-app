@@ -29,10 +29,16 @@ const FiltersScreen = props => {
 
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
-            headerLeft: () => (<HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item title="Menu" iconName='ios-menu' onPress={() => {props.navigation.toggleDrawer()}} />
-            </HeaderButtons>
+            headerLeft: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item title="Menu" iconName='ios-menu' onPress={() => {props.navigation.toggleDrawer()}} />
+                </HeaderButtons>
             ),
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item title="Menu" iconName='ios-save' onPress={() => {console.log('Saving Filters...')}} />
+                </HeaderButtons>
+            )
         })
     })
 

@@ -10,7 +10,12 @@ const Filter = props => {
     return(
         <View style={styles.filterContainer}>
             <DefaultText style={styles.filterLabel}>{props.label}</DefaultText>
-            <Switch value={props.switchStatus} onValueChange={newValue => props.setSwitchStatus(newValue)} trackColor={{true: Colors.primary}} thumbColor={Platform.OS === 'android' ? Colors.primary : ''} />
+            <Switch
+                value={props.switchStatus}
+                onValueChange={newValue => props.setSwitchStatus(newValue)}
+                trackColor={{true: Colors.primary}}
+                thumbColor={Platform.OS === 'android' ? Colors.primary : ''}
+            />
         </View>
     )
 }
@@ -18,6 +23,9 @@ const Filter = props => {
 const FiltersScreen = props => {
 
     let [isGlutenFree, setIsGlutenFree] = useState(false)
+    let [isVegetarian, setIsVegetarian] = useState(false)
+    let [isVegan, setIsVegan] = useState(false)
+    let [isLactoseFree, setIsLactoseFree] = useState(false)
 
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -32,6 +40,9 @@ const FiltersScreen = props => {
         <View style={styles.screen}>
             <Text style={styles.title}>Available Filters</Text>
             <Filter label="Gluten-Free" switchStatus={isGlutenFree} setSwitchStatus={setIsGlutenFree} />
+            <Filter label="Vegetarian" switchStatus={isVegetarian} setSwitchStatus={setIsVegetarian} />
+            <Filter label="Vegan" switchStatus={isVegan} setSwitchStatus={setIsVegan} />
+            <Filter label="Lactose-Free" switchStatus={isLactoseFree} setSwitchStatus={setIsLactoseFree} />
         </View>
     )
 }
@@ -51,7 +62,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '80%'
+        width: '80%',
+        marginVertical: 20
     },
     filterLabel: {
         fontSize: 18

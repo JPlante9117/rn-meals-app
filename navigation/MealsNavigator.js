@@ -14,7 +14,7 @@ import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
 
 import FavoritesScreen from '../screens/FavoritesScreen'
-import FiltersScreen from '../screens/FiltersScreen'
+import FiltersScreen, { filterScreenOptions } from '../screens/FiltersScreen'
 import { Ionicons } from '@expo/vector-icons'
 
 enableScreens()
@@ -169,9 +169,7 @@ const MealsNavigator = props => {
                     <Stack.Screen
                         name="Filters"
                         component={FiltersScreen}
-                        options={({navigation, route}) => ({
-                            title: 'Filter Results'
-                        })}
+                        options={filterScreenOptions}
                     />
                 </Stack.Navigator>
     }
@@ -198,9 +196,6 @@ const MealsNavigator = props => {
                 <Drawer.Screen
                     name="Filters"
                     component={filterStack}
-                    options={{
-
-                    }}
                 />
             </Drawer.Navigator>
         </NavigationContainer>

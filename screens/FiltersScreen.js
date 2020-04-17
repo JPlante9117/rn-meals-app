@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Platform } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../components/HeaderButton'
@@ -27,20 +27,23 @@ const FiltersScreen = props => {
     let [isVegan, setIsVegan] = useState(false)
     let [isLactoseFree, setIsLactoseFree] = useState(false)
 
-    React.useLayoutEffect(() => {
-        props.navigation.setOptions({
-            headerLeft: () => (
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item title="Menu" iconName='ios-menu' onPress={() => {props.navigation.toggleDrawer()}} />
-                </HeaderButtons>
-            ),
-            headerRight: () => (
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item title="Menu" iconName='ios-save' onPress={() => {console.log('Saving Filters...')}} />
-                </HeaderButtons>
-            )
-        })
-    })
+    const saveFilters = () => {
+        const appliedFilters = {
+            glutenFree: isGlutenFree,
+            lactoseFree: isLactoseFree,
+            vegetarian: isVegetarian,
+            vegan: isVegan
+        }
+    
+        console.log(appliedFilters)
+    }
+
+    // React.useLayoutEffect(() => {
+        
+    //     props.navigation.setParams({
+    //         filters: saveFilters
+    //     })
+    // })
 
     return(
         <View style={styles.screen}>
@@ -51,6 +54,24 @@ const FiltersScreen = props => {
             <Filter label="Lactose-Free" switchStatus={isLactoseFree} setSwitchStatus={setIsLactoseFree} />
         </View>
     )
+}
+
+export const filterScreenOptions = navData => {
+    return{
+            title: 'Filter Results',
+            headerLeft: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item title="Menu" iconName='ios-menu' onPress={() => {navData.navigation.toggleDrawer()}} />
+                </HeaderButtons>
+            ),
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item title="Menu" iconName='ios-save' onPress={() => {
+                        console.log(navData.navigation)
+                    }} />
+                </HeaderButtons>
+            )
+    }
 }
 
 const styles = StyleSheet.create({

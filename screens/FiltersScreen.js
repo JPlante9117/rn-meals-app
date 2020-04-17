@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { View, Text, StyleSheet, Platform } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../components/HeaderButton'
 import { Switch } from 'react-native-paper'
 import DefaultText from '../components/DefaultText'
 import Colors from '../constants/Colors'
+import { BaseRouter } from '@react-navigation/native'
 
 const Filter = props => {
     return(
@@ -22,28 +23,30 @@ const Filter = props => {
 
 const FiltersScreen = props => {
 
+    const { navigation, route } = props
+
     let [isGlutenFree, setIsGlutenFree] = useState(false)
     let [isVegetarian, setIsVegetarian] = useState(false)
     let [isVegan, setIsVegan] = useState(false)
     let [isLactoseFree, setIsLactoseFree] = useState(false)
 
-    const saveFilters = () => {
+    const setParams = useRef(navigation.setParams)
+
+    const saveFilters = useCallback(() => {
         const appliedFilters = {
             glutenFree: isGlutenFree,
             lactoseFree: isLactoseFree,
             vegetarian: isVegetarian,
             vegan: isVegan
         }
-    
-        console.log(appliedFilters)
-    }
 
-    // React.useLayoutEffect(() => {
-        
-    //     props.navigation.setParams({
-    //         filters: saveFilters
-    //     })
-    // })
+        console.log(appliedFilters)
+        return appliedFilters
+    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
+
+    useEffect(() => {
+        setParams.current({save: saveFilters()})
+    }, [saveFilters, setParams])
 
     return(
         <View style={styles.screen}>
@@ -66,9 +69,7 @@ export const filterScreenOptions = navData => {
             ),
             headerRight: () => (
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item title="Menu" iconName='ios-save' onPress={() => {
-                        console.log(navData.navigation)
-                    }} />
+                    <Item title="Save" iconName='ios-save' onPress={() => console.log(navData.route.params)} />
                 </HeaderButtons>
             )
     }

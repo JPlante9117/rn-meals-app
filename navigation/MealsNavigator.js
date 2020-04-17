@@ -169,6 +169,7 @@ const MealsNavigator = props => {
                     <Stack.Screen
                         name="Filters"
                         component={FiltersScreen}
+                        initialParams={{save: {}}}
                         options={filterScreenOptions}
                     />
                 </Stack.Navigator>

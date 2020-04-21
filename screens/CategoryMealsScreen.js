@@ -1,6 +1,5 @@
 import React from 'react'
 import { CATEGORIES, MEALS } from '../data/Dummy-Data'
-import CategoryMealGridTile from '../components/CategoryMealGridTile'
 import MealList from '../components/MealList'
 
 const CategoryMealsScreen = props => {

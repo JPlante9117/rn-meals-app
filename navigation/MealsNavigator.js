@@ -10,7 +10,6 @@ import MealDetailsScreen, { mealDetailsScreenOptions } from '../screens/MealDeta
 import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
-import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
 
 import FavoritesScreen, { favoritesScreenOptions } from '../screens/FavoritesScreen'

@@ -11,7 +11,7 @@ const MealList = props => {
                     complexity={itemData.item.complexity}
                     affordability={itemData.item.affordability}
                     image={itemData.item.imageUrl}
-                    handleOnPress={() => props.navigation.navigate('Meal Details', {id: itemData.item.id})}
+                    handleOnPress={() => props.navigation.navigate('Meal Details', {id: itemData.item.id, mealTitle: itemData.item.title})}
                 />
     }
 

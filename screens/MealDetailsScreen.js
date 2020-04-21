@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import CustomHeaderButton from '../components/HeaderButton'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { ScrollView, FlatList } from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 import DefaultText from '../components/DefaultText'
-import { MEALS } from '../data/Dummy-Data'
 import { Entypo } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
+import { useSelector } from 'react-redux'
 
 const ListItem = props => {
     return <View style={styles.listItem}>
@@ -19,10 +19,9 @@ const ListItem = props => {
 const MealDetailsScreen = ({navigation, route}) => {
 
     const [favoriteStatus, setFavoriteStatus] = useState(false)
-
     const mealId = route.params.id
-
-    const selectedMeal = MEALS.find(meal => meal.id === mealId)
+    const availableMeals = useSelector(state => state.meals.meals)
+    const selectedMeal = availableMeals.find(meal => meal.id === mealId)
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -58,8 +57,9 @@ const MealDetailsScreen = ({navigation, route}) => {
 }
 
 export const mealDetailsScreenOptions = navData => {
+
     return{
-        title: MEALS.find(meal => meal.id === navData.route.params.id).title,
+        title: navData.route.params.mealTitle,
         headerTitleContainerStyle: {
             width: Platform.OS === 'ios' ? '60%' : '75%',
             alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',

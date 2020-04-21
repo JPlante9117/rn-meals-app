@@ -1,6 +1,6 @@
 import React from 'react'
 import DefaultText from '../components/DefaultText'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -159,14 +159,18 @@ const MealsNavigator = props => {
                     labelStyle: {
                         fontFamily: 'open-sans',
                         fontSize: 22
-                    }
+                    },
                 }}
+                drawerType='slide'
             >
                 <Drawer.Screen
                     name="Home"
                     component={tabNavigation}
                     options={{
-                        drawerLabel: 'Meals'
+                        drawerLabel: 'Meals',
+                        transitionSpec: {
+                            ...TransitionPresets.DefaultTransition
+                        }
                     }}
                 />
                 <Drawer.Screen

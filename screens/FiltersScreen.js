@@ -7,6 +7,7 @@ import DefaultText from '../components/DefaultText'
 import Colors from '../constants/Colors'
 import { useDispatch } from 'react-redux'
 import { setFilters } from '../store/actions/mealActions'
+import Animated, { Easing } from 'react-native-reanimated'
 
 const Filter = props => {
     return(
@@ -32,8 +33,25 @@ const FiltersScreen = props => {
     let [isLactoseFree, setIsLactoseFree] = useState(false)
 
     const setParams = useRef(navigation.setParams)
+    const fadeAnim = useRef(new Animated.Value(0)).current
 
     const dispatch = useDispatch()
+
+    const fadeIn = () => {
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 700,
+            easing: Easing.ease
+        }).start()
+    }
+
+    const fadeOut = () => {
+        Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 700,
+            easing: Easing.ease
+        }).start()
+    }
 
     const saveFilters = useCallback(() => {
         const appliedFilters = {
@@ -44,6 +62,8 @@ const FiltersScreen = props => {
         }
 
         dispatch(setFilters(appliedFilters))
+        fadeIn()
+        setTimeout(() => fadeOut(), 2000)
     }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
 
     useEffect(() => {
@@ -57,6 +77,9 @@ const FiltersScreen = props => {
             <Filter label="Vegetarian" switchStatus={isVegetarian} setSwitchStatus={setIsVegetarian} />
             <Filter label="Vegan" switchStatus={isVegan} setSwitchStatus={setIsVegan} />
             <Filter label="Lactose-Free" switchStatus={isLactoseFree} setSwitchStatus={setIsLactoseFree} />
+            <Animated.View style={{...styles.filterSaveView, opacity: fadeAnim}}>
+                <Text style={styles.filterSaveText}>Filters Saved</Text>
+            </Animated.View>
         </View>
     )
 }
@@ -97,6 +120,20 @@ const styles = StyleSheet.create({
     },
     filterLabel: {
         fontSize: 18
+    },
+    filterSaveView: {
+        marginTop: 15,
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        backgroundColor: Colors.secondary,
+        borderRadius: 100,
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    filterSaveText: {
+        fontSize: 22,
+        color: 'white'
     }
 })
 

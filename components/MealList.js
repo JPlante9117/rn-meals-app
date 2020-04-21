@@ -1,8 +1,11 @@
 import React from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 import CategoryMealGridTile from './CategoryMealGridTile'
+import { useSelector } from 'react-redux'
 
 const MealList = props => {
+
+    const favoriteMeals = useSelector(state => state.meals.favoriteMeals)
 
     const renderMeals = itemData => {
         return <CategoryMealGridTile
@@ -11,7 +14,7 @@ const MealList = props => {
                     complexity={itemData.item.complexity}
                     affordability={itemData.item.affordability}
                     image={itemData.item.imageUrl}
-                    handleOnPress={() => props.navigation.navigate('Meal Details', {id: itemData.item.id, mealTitle: itemData.item.title})}
+                    handleOnPress={() => props.navigation.navigate('Meal Details', {id: itemData.item.id, mealTitle: itemData.item.title, isFav: favoriteMeals.find(meal => meal.id === itemData.item.id)})}
                 />
     }
 

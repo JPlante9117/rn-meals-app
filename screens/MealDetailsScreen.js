@@ -20,6 +20,7 @@ const ListItem = props => {
 const MealDetailsScreen = ({navigation, route}) => {
     const mealId = route.params.id
     const availableMeals = useSelector(state => state.meals.meals)
+    const isCurrentlyFavorited = useSelector(state => state.meals.favoriteMeals.some(meal => meal.id === mealId))
     const selectedMeal = availableMeals.find(meal => meal.id === mealId)
     const dispatch = useDispatch()
 
@@ -28,8 +29,8 @@ const MealDetailsScreen = ({navigation, route}) => {
     }, [dispatch, mealId])
 
     React.useLayoutEffect(() => {
-        navigation.setParams({toggleFav: toggleFavoriteHandler})
-    }, [navigation, toggleFavoriteHandler])
+        navigation.setParams({toggleFav: toggleFavoriteHandler, favList: isCurrentlyFavorited})
+    }, [navigation, toggleFavoriteHandler, isCurrentlyFavorited])
 
     return(
         <ScrollView>
@@ -49,6 +50,9 @@ const MealDetailsScreen = ({navigation, route}) => {
 
 export const mealDetailsScreenOptions = navData => {
 
+    let favorited = navData.route.params.favList
+
+
     return{
         title: navData.route.params.mealTitle,
         headerTitleContainerStyle: {
@@ -59,7 +63,7 @@ export const mealDetailsScreenOptions = navData => {
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                 <Item
                     title="Favorite"
-                    iconName={true ? 'ios-star' : 'ios-star-outline'}
+                    iconName={ favorited ? 'ios-star' : 'ios-star-outline'}
                     onPress={navData.route.params.toggleFav}
                 />
             </HeaderButtons>

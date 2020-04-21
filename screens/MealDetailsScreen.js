@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import CustomHeaderButton from '../components/HeaderButton'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
@@ -6,7 +6,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 import DefaultText from '../components/DefaultText'
 import { Entypo } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleFavorite } from '../store/actions/mealActions'
 
 const ListItem = props => {
     return <View style={styles.listItem}>
@@ -17,28 +18,18 @@ const ListItem = props => {
 }
 
 const MealDetailsScreen = ({navigation, route}) => {
-
-    const [favoriteStatus, setFavoriteStatus] = useState(false)
     const mealId = route.params.id
     const availableMeals = useSelector(state => state.meals.meals)
     const selectedMeal = availableMeals.find(meal => meal.id === mealId)
+    const dispatch = useDispatch()
+
+    const toggleFavoriteHandler = useCallback(() => {
+        dispatch(toggleFavorite(mealId))
+    }, [dispatch, mealId])
 
     React.useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                        <Item
-                            title="Favorite"
-                            iconName={favoriteStatus ? 'ios-star' : 'ios-star-outline'}
-                            onPress={() => {
-                                setFavoriteStatus(!favoriteStatus)
-                                }
-                            }
-                        />
-                    </HeaderButtons>
-            ),
-        })
-    }, [navigation, favoriteStatus, setFavoriteStatus])
+        navigation.setParams({toggleFav: toggleFavoriteHandler})
+    }, [navigation, toggleFavoriteHandler])
 
     return(
         <ScrollView>
@@ -63,7 +54,16 @@ export const mealDetailsScreenOptions = navData => {
         headerTitleContainerStyle: {
             width: Platform.OS === 'ios' ? '60%' : '75%',
             alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
-        }
+        },
+        headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                <Item
+                    title="Favorite"
+                    iconName={true ? 'ios-star' : 'ios-star-outline'}
+                    onPress={navData.route.params.toggleFav}
+                />
+            </HeaderButtons>
+    )
     }
 }
 

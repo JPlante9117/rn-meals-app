@@ -5,7 +5,6 @@ import HeaderButton from '../components/HeaderButton'
 import { Switch } from 'react-native-paper'
 import DefaultText from '../components/DefaultText'
 import Colors from '../constants/Colors'
-import { BaseRouter } from '@react-navigation/native'
 
 const Filter = props => {
     return(
@@ -39,8 +38,6 @@ const FiltersScreen = props => {
             vegetarian: isVegetarian,
             vegan: isVegan
         }
-
-        console.log(appliedFilters)
         return appliedFilters
     }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
 

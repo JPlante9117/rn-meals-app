@@ -4,16 +4,16 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import CategoriesScreen from '../screens/CategoriesScreen'
-import CategoryMealsScreen from '../screens/CategoryMealsScreen'
-import MealDetailsScreen from '../screens/MealDetailsScreen'
+import CategoriesScreen, { categoryScreenOptions } from '../screens/CategoriesScreen'
+import CategoryMealsScreen, { categoryMealsScreenOptions } from '../screens/CategoryMealsScreen'
+import MealDetailsScreen, { mealDetailsScreenOptions } from '../screens/MealDetailsScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 import { CATEGORIES, MEALS } from '../data/Dummy-Data'
 import { enableScreens } from 'react-native-screens'
 
-import FavoritesScreen from '../screens/FavoritesScreen'
+import FavoritesScreen, { favoritesScreenOptions } from '../screens/FavoritesScreen'
 import FiltersScreen, { filterScreenOptions } from '../screens/FiltersScreen'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -52,32 +52,17 @@ const MealsNavigator = props => {
                 <Stack.Screen
                     name="Categories"
                     component={CategoriesScreen}
-                    options={({navigation, route}) => ({
-                        title: 'Meal Categories'
-                    })}
+                    options={categoryScreenOptions}
                 />
                 <Stack.Screen
                     name="Category Meals"
                     component={CategoryMealsScreen}
-                    options={({route}) => ({
-                        title: CATEGORIES.find(cat => cat.id === route.params.id).title,
-                        
-                        headerStyle: {
-                            backgroundColor: CATEGORIES.find(cat => cat.id === route.params.id).color
-                        }
-                    })}
+                    options={categoryMealsScreenOptions}
                 />
                 <Stack.Screen
                     name="Meal Details"
                     component={MealDetailsScreen}
-                    options={({navigation, route}) => ({
-                        title: MEALS.find(meal => meal.id === route.params.id).title,
-                        headerTitleContainerStyle: {
-                            width: Platform.OS === 'ios' ? '60%' : '75%',
-                            alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
-                        }
-                    })
-                    }
+                    options={mealDetailsScreenOptions}
                 />
             </Stack.Navigator>
         )
@@ -92,21 +77,12 @@ const MealsNavigator = props => {
                     <Stack.Screen
                         name="Favorites"
                         component={FavoritesScreen}
-                        options={({navigation, route}) => ({
-                            title: 'Favorite Meals'
-                        })}
+                        options={favoritesScreenOptions}
                     />
                     <Stack.Screen
                     name="Meal Details"
                     component={MealDetailsScreen}
-                    options={({navigation, route}) => ({
-                        title: MEALS.find(meal => meal.id === route.params.id).title,
-                        headerTitleContainerStyle: {
-                            width: Platform.OS === 'ios' ? '60%' : '75%',
-                            alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
-                        }
-                    })
-                    }
+                    options={mealDetailsScreenOptions}
                 />
                 </Stack.Navigator>
     }

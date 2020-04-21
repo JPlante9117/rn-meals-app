@@ -11,15 +11,6 @@ const CategoriesScreen = props => {
         return <CategoryGridTile id={itemData.item.id} title={itemData.item.title} color={itemData.item.color} handleOnPress={() => props.navigation.navigate('Category Meals', {id: itemData.item.id})} />
     }
 
-    React.useLayoutEffect(() => {
-        props.navigation.setOptions({
-            headerLeft: () => (<HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item title="Menu" iconName='ios-menu' onPress={() => {props.navigation.toggleDrawer()}} />
-            </HeaderButtons>
-            ),
-        })
-    })
-
     return(
         <View style={styles.container}>
             <FlatList 
@@ -30,6 +21,17 @@ const CategoriesScreen = props => {
             />
         </View>
     )
+}
+
+export const categoryScreenOptions = navData => {
+    return {
+        title: "Meal Categories",
+        headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item title="Menu" iconName='ios-menu' onPress={() => {navData.navigation.toggleDrawer()}} />
+        </HeaderButtons>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

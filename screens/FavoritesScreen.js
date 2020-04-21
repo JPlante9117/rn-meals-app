@@ -9,16 +9,17 @@ const FavoritesScreen = props => {
 
     let mealData = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2')
 
-    React.useLayoutEffect(() => {
-        props.navigation.setOptions({
-            headerLeft: () => (<HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item title="Menu" iconName='ios-menu' onPress={() => {props.navigation.toggleDrawer()}} />
-            </HeaderButtons>
-            ),
-        })
-    })
-
     return <MealList listData={mealData} navigation={props.navigation} />
+}
+
+export const favoritesScreenOptions = navData => {
+    return {
+        title: "Favorite Meals",
+        headerLeft: () => (<HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item title="Menu" iconName='ios-menu' onPress={() => {navData.navigation.toggleDrawer()}} />
+        </HeaderButtons>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

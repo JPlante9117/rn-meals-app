@@ -12,4 +12,14 @@ const CategoryMealsScreen = props => {
     return <MealList listData={displayedMeals} navigation={props.navigation} />
 }
 
+export const categoryMealsScreenOptions = navData => {
+    return {
+        title: CATEGORIES.find(cat => cat.id === navData.route.params.id).title,
+                        
+        headerStyle: {
+            backgroundColor: CATEGORIES.find(cat => cat.id === navData.route.params.id).color
+        }
+    }
+}
+
 export default CategoryMealsScreen

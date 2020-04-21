@@ -57,6 +57,16 @@ const MealDetailsScreen = ({navigation, route}) => {
     )
 }
 
+export const mealDetailsScreenOptions = navData => {
+    return{
+        title: MEALS.find(meal => meal.id === navData.route.params.id).title,
+        headerTitleContainerStyle: {
+            width: Platform.OS === 'ios' ? '60%' : '75%',
+            alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
+        }
+    }
+}
+
 const styles = StyleSheet.create({
     title: {
         fontWeight: "bold",

@@ -5,6 +5,8 @@ import HeaderButton from '../components/HeaderButton'
 import { Switch } from 'react-native-paper'
 import DefaultText from '../components/DefaultText'
 import Colors from '../constants/Colors'
+import { useDispatch } from 'react-redux'
+import { setFilters } from '../store/actions/mealActions'
 
 const Filter = props => {
     return(
@@ -31,6 +33,8 @@ const FiltersScreen = props => {
 
     const setParams = useRef(navigation.setParams)
 
+    const dispatch = useDispatch()
+
     const saveFilters = useCallback(() => {
         const appliedFilters = {
             glutenFree: isGlutenFree,
@@ -38,11 +42,12 @@ const FiltersScreen = props => {
             vegetarian: isVegetarian,
             vegan: isVegan
         }
-        return appliedFilters
+
+        dispatch(setFilters(appliedFilters))
     }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
 
     useEffect(() => {
-        setParams.current({save: saveFilters()})
+        setParams.current({save: saveFilters})
     }, [saveFilters, setParams])
 
     return(
@@ -66,7 +71,7 @@ export const filterScreenOptions = navData => {
             ),
             headerRight: () => (
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item title="Save" iconName='ios-save' onPress={() => console.log(navData.route.params)} />
+                    <Item title="Save" iconName='ios-save' onPress={navData.route.params.save} />
                 </HeaderButtons>
             )
     }

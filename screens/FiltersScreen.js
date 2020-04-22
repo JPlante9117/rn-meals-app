@@ -66,9 +66,19 @@ const FiltersScreen = props => {
         setTimeout(() => fadeOut(), 2000)
     }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
 
+    // useEffect(() => {
+    //     setParams.current({save: saveFilters})
+    // }, [saveFilters, setParams])
+
     useEffect(() => {
-        setParams.current({save: saveFilters})
-    }, [saveFilters, setParams])
+        navigation.setOptions({
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item title="Save" iconName='ios-save' onPress={saveFilters} />
+                </HeaderButtons>
+            )
+        })
+    })
 
     return(
         <View style={styles.screen}>
@@ -90,11 +100,6 @@ export const filterScreenOptions = navData => {
             headerLeft: () => (
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
                     <Item title="Menu" iconName='ios-menu' onPress={() => {navData.navigation.toggleDrawer()}} />
-                </HeaderButtons>
-            ),
-            headerRight: () => (
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item title="Save" iconName='ios-save' onPress={navData.route.params.save} />
                 </HeaderButtons>
             )
     }

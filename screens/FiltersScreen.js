@@ -32,7 +32,6 @@ const FiltersScreen = props => {
     let [isVegan, setIsVegan] = useState(false)
     let [isLactoseFree, setIsLactoseFree] = useState(false)
 
-    const setParams = useRef(navigation.setParams)
     const fadeAnim = useRef(new Animated.Value(0)).current
 
     const dispatch = useDispatch()
@@ -65,10 +64,6 @@ const FiltersScreen = props => {
         fadeIn()
         setTimeout(() => fadeOut(), 2000)
     }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
-
-    // useEffect(() => {
-    //     setParams.current({save: saveFilters})
-    // }, [saveFilters, setParams])
 
     useEffect(() => {
         navigation.setOptions({
